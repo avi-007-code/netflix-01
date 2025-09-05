@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 require('dotenv').config();
-
+app.use(express.json());
 // creating the admin & user routes
 const adminRouter = require('./router/adminRoutes');
 const userRouter = require('./router/userRoutes');
@@ -13,6 +13,8 @@ app.get('/', (req, res) => {
 app.use('/api/admin', adminRouter);
 app.use('/api/user', userRouter);
 
+
+app.use(express.urlencoded({ extended: true }));
 // importing and running the server
 app.listen(process.env.PORT, () => {
   console.log(`Server is running on ${process.env.DEV_URL}:${process.env.PORT}`);

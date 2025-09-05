@@ -1,8 +1,24 @@
-const e = require("express");
+const { prisma } = require("../utils/dbConnector");
 
-exports.adminRegister=(req,res)=>{
-    console.log(req.body);
-    res.status(300).send("Admin registered successfully");
+
+exports.adminRegister= async (req,res)=>{
+    //console.log(req.body);
+    //res.status(300).send("Admin registered successfully");
+    const {name,role,email,pass} = req.body
+    try{
+        const UserData = await prisma.user.create({
+            data:{
+                name,
+                role,
+                email,                
+                password:pass
+            }
+        });
+        res.status(201).send({message:'created admin',status:true,data:UserData})
+    }
+    catch(err){
+        res.status(204).send({message:err,status:false});
+    }
 }
 
 exports.adminLogin=(req,res)=>{

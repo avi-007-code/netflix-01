@@ -1,4 +1,4 @@
-const e = require("express");
+//
 
 exports.userRegister=(req,res)=>{
     console.log(req.body);

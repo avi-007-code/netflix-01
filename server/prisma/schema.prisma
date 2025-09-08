@@ -30,7 +30,7 @@ model Genre {
 
 model Movies {
   id      String   @id @default(auto()) @map("_id") @db.ObjectId
-  name    String
+  title    String
   addedAt DateTime @default(now())
   
   genreId String   @db.ObjectId

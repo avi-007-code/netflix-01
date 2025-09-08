@@ -6,8 +6,8 @@ const {adminRegister, adminLogin, addMovie, addGenre, changePassword, viewMovies
 const {verifyAdmin} = authenticateMiddleware;
 
 router.post('/register', adminRegister);
-router.post('/login', adminLogin);         // middleware passed
-router.post('/addMovie',verifyAdmin, addMovie);
+router.post('/login', adminLogin);         
+router.post('/addMovie',verifyAdmin, addMovie);     // middleware passed
 router.post('/genre',verifyAdmin, addGenre);
 router.post('/changePass',verifyAdmin, changePassword);
 router.post('/viewMovies',verifyAdmin, viewMovies);

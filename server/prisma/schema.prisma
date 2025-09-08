@@ -25,14 +25,20 @@ model User {
 model Genre {
   id     String   @id @default(auto()) @map("_id") @db.ObjectId
   name   String
-  movies Movies[] @relation("GenreMovies") // relation name
+  movies Movies[] // one genre can have many movies
 }
 
 model Movies {
-  id      String   @id @default(auto()) @map("_id") @db.ObjectId
-  title    String
-  addedAt DateTime @default(now())
-  
-  genreId String   @db.ObjectId
-  genre   Genre    @relation("GenreMovies", fields: [genreId], references: [id])
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  title     String
+  desc      String?
+  year      Int
+  url       String
+  bannerUrl String?
+  addedAt   DateTime @default(now())
+  rating    Int      @default(0)
+
+  // Relation
+  genreId String @db.ObjectId
+  genre   Genre  @relation(fields: [genreId], references: [id])
 }

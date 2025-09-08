@@ -1,19 +1,6 @@
-// exports.verifyAdmin = (req,res,next)=>{
-//     //const token = req.headers.authorization?.split(" ")[1];
-
-//     if(req.body.token){
-//     console.log('REq triggered from',req.path);
-//     console.log(req.body.token);
-//     next();
-//     }else{
-//         res.status(403).send({message:'AUth Failed'});
-//     }
-// }
-
-
 const jwt = require('jsonwebtoken');
 
-exports.verifyAdmin = (req, res, next) => {
+exports.verifyUser = (req, res, next) => {
   const token = req.body.token;
 
   if (!token) {
@@ -25,11 +12,11 @@ exports.verifyAdmin = (req, res, next) => {
     console.log('Request triggered from:', req.path);
     console.log('Token payload:', decoded);
 
-    if (decoded.role === 'admin') {
+    if (decoded.role === 'user') {
       req.user = decoded;
       next();
     } else {
-      return res.status(403).json({ message: 'Access denied: Admins only' });
+      return res.status(403).json({ message: 'Access denied: Users only' });
     }
   } catch (error) {
     console.error('Token verification failed:', error);
@@ -37,4 +24,4 @@ exports.verifyAdmin = (req, res, next) => {
   }
 };
 
-//module.exports = verifyAdmin;
+//module.exports = verifyUser;

@@ -1,20 +1,7 @@
-// exports.verifyAdmin = (req,res,next)=>{
-//     //const token = req.headers.authorization?.split(" ")[1];
-
-//     if(req.body.token){
-//     console.log('REq triggered from',req.path);
-//     console.log(req.body.token);
-//     next();
-//     }else{
-//         res.status(403).send({message:'AUth Failed'});
-//     }
-// }
-
-
 const jwt = require('jsonwebtoken');
 
 exports.verifyAdmin = (req, res, next) => {
-  const token = req.body.token;
+  const {token} = req.body;
 
   if (!token) {
     return res.status(403).json({ message: 'Authentication failed: No token provided' });
@@ -22,8 +9,7 @@ exports.verifyAdmin = (req, res, next) => {
 
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET_TOKEN);
-    console.log('Request triggered from:', req.path);
-    console.log('Token payload:', decoded);
+    
 
     if (decoded.role === 'admin') {
       req.user = decoded;
@@ -32,9 +18,25 @@ exports.verifyAdmin = (req, res, next) => {
       return res.status(403).json({ message: 'Access denied: Admins only' });
     }
   } catch (error) {
-    console.error('Token verification failed:', error);
+    ;
     return res.status(403).json({ message: 'Authentication failed' });
   }
 };
 
-//module.exports = verifyAdmin;
+exports.verifyToken = (req,res,next)=>{
+    const authHeader = req.headers['authorization'];
+    try {
+      if (!authHeader) res.status(401).json({ message: "Authorization header missing" });
+      const token = authHeader.split(' ')[1];
+        if (!token) {
+            return res.status(401).json({ message: "Token missing" });
+        }
+        next();
+      
+    } catch (error) {
+
+       res.status(403).send({message:'AUth Failed'});
+      
+    }
+    
+}

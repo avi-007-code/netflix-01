@@ -12,7 +12,7 @@ const adminRouter = require('./router/adminRoutes');
 const userRouter = require('./router/userRoutes');
 
 // connecting to DB
-const {ConnectDb} =  require('./utils/dbConnector');
+const {ConnectDb, prisma} =  require('./utils/dbConnector');
 ConnectDb();
 
 

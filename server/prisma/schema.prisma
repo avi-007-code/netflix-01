@@ -18,7 +18,7 @@ model User {
   name      String?    
   email     String @unique  
   role      String
-  pass String 
+  pass      String
   createdAt DateTime @default(now())
 }
 

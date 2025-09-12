@@ -19,16 +19,16 @@ exports.adminRegister= async (req,res)=>{
     res.status(201).send({message:'created admin',status:true,data:UserData})
     }catch(err){
        res.status(400).send({message:err,status:false})
-       //console.log(err)
+       //console.log(err.message)
     }  
 }
 exports.adminLogin= async (req,res)=>{
     const {email,pass} = req.body;
     try{
       const validUser = await prisma.user.findFirst({where:{email:email,role:'admin'}});
-      if(!validUser) res.status(400).send({message:`User Doesn't exist`});
+      if(!validUser)return res.status(400).send({message:`User Doesn't exist`});
       const validPass =await bcrypt.compare(pass,validUser.pass);
-      if(!validPass) res.status(400).send({message:`Wrong Password`});
+      if(!validPass)return  res.status(400).send({message:`Wrong Password`});
       //we will generate token here and send it as response
       const token = jwt.sign(
         {id:validUser.id,email:email,role:'admin'},
@@ -75,7 +75,7 @@ exports.userLogin = async (req,res)=>{
         res.status(400).send({message:error})
     }
 
-  console.log(req.body)
+  
   res.status(201).send({status:true});
 }
 

@@ -11,7 +11,7 @@ router.get('/viewAllMovies',viewAllMovies);
 router.get('/viewAllGenres',viewAllGenres);     
 router.get('/moviesByGenre/:genre',moviesByGenre);
 router.get('/viewMovie/:id',viewMovie);
-router.post('/rating/:id',verifyToken,giveRating);             // have to check this one
+router.post('/rating/:id',giveRating);             // have to check this one
 router.get('/search/:movie',searchMovies);
 
 module.exports = router;

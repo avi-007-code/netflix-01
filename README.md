@@ -2,11 +2,12 @@
 
 # Basic requirements
 - server
-    - npm i nodemon bcryptjs express jsonwebtoken
+    - npm i nodemon bcryptjs express jsonwebtoken cors
 
 # React
  - client
     - npm create vite@latest .                    // (.) for current directory
+    - npm i axios   
 
 
 #### installations for DB on Prisma 

@@ -1,11 +1,13 @@
 const express = require('express');
 const app = express();
 require('dotenv').config();
-
+const cors = require("cors")
 
 app.use(express.json());    // json parser || MIDDLEWARE
 
-
+app.use(cors({
+  origin:"http://localhost:5173"
+}))
 
 // creating the admin & user routes
 const adminRouter = require('./router/adminRoutes');

@@ -92,3 +92,46 @@ exports.editMovie = async (req, res) => {
     res.status(500).send({ error: err.message });
   }
 };
+
+exports.deleteMovie = async(req,res) =>{
+  try {
+    const {id} = req.body
+    const deleteMovie = await prisma.movies.delete({
+      where:{id:id},
+    });
+
+    res.status(200).send({ message: "Movie deleted successfully",deleteMovie})
+  } catch (error) {
+    res.status(500).send({error: error.message})
+  }
+}
+
+exports.deleteGenre = async(req,res) =>{
+  try {
+    const {id} = req.body
+    const deleteGenre = await prisma.genre.delete({
+      where:{id:id},
+    });
+
+    res.status(200).send({ message: "Genre deleted successfully",deleteGenre})
+  } catch (error) {
+    res.status(500).send({error: error.message})
+  }
+}
+
+exports.MovieByGenre = async (req, res) => {
+  const { genreId } = req.params;
+  try {
+    const movies = await prisma.movies.findMany({
+      where: {
+        genreId: parseInt(genreId),
+      },
+    });
+    res.status(200).json(movies);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Failed to fetch movies' });
+  }
+}
+
+

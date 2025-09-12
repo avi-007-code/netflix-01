@@ -63,18 +63,19 @@ exports.giveRating = async (req, res) => {
   try {
     const { id } = req.params;
     const { score } = req.body;
-    const userId = req.user.id;
+    
 
     if (score < 1 || score > 10) return res.status(400).send({ message: "Invalid rating" });
 
     const movie = await prisma.movies.findUnique({ where: { id } });
     if (!movie) return res.status(404).send({ message: "Movie not found" });
 
-    await prisma.rating.create({
-      data: { movieId: id, userId, score }
+    const change = await prisma.movies.update({
+      where:{id},
+      data: { rating:score }
     });
 
-    res.send({ message: "Rating submitted successfully" });
+    res.status(201).send({ message: "Rating submitted successfully",change });
   } catch (err) {
     res.status(500).send({ error: err.message });
   }

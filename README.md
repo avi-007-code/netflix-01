@@ -23,3 +23,5 @@
     - npx prisma init 
     - npx prisma generate 
     <!-- - npx prisma migrate dev --name migration_name -->
+
+    

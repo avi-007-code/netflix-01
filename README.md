@@ -24,4 +24,8 @@
     - npx prisma generate 
     <!-- - npx prisma migrate dev --name migration_name -->
 
+    `For pushing this schema to the db`
+
+    - npx prisma db push
+
     
